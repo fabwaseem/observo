@@ -80,6 +80,7 @@ class ApiManager {
         data: options.data,
         params: options.params,
         headers: options.headers,
+        withCredentials: true,
       };
 
       const response: AxiosResponse<T> = await this.axiosInstance(config);

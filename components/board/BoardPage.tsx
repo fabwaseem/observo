@@ -1,8 +1,6 @@
 "use client";
-import { useWallet } from "@/contexts/wallet";
 import { useCreatePost, usePosts } from "@/lib/hooks/usePosts";
 import { Board } from "@/types";
-import { useAppKit } from "@reown/appkit/react";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -14,15 +12,10 @@ function BoardPage({ board }: { board: Board }) {
   const { data: posts } = usePosts(board?.id);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const { authenticated } = useWallet();
-  const { open } = useAppKit();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!authenticated) {
-      open();
-      return;
-    }
     if (!board) return;
 
     if (!title.trim()) {

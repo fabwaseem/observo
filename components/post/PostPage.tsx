@@ -1,10 +1,8 @@
 "use client";
 
-import { useWallet } from "@/contexts/wallet";
 import { useComments, useCreateComment } from "@/lib/hooks/useComments";
 import { usePostBySlug } from "@/lib/hooks/usePosts";
 import { Board } from "@/types";
-import { useAppKit } from "@reown/appkit/react";
 import { format } from "date-fns";
 import { Loader2, Undo2 } from "lucide-react";
 import Image from "next/image";
@@ -26,8 +24,6 @@ const PostPage = ({ board, postSlug }: PostContentProps) => {
     post?.id ?? ""
   );
   const createCommentMutation = useCreateComment();
-  const { authenticated } = useWallet();
-  const { open } = useAppKit();
 
   if (isPostLoading) {
     return (
@@ -44,11 +40,6 @@ const PostPage = ({ board, postSlug }: PostContentProps) => {
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!comment.trim() || !post.id) return;
-
-    if (!authenticated) {
-      open();
-      return;
-    }
 
     await createCommentMutation.mutate({
       content: comment,

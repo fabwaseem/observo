@@ -1,10 +1,8 @@
 "use client";
+import { useUpvotePost } from "@/lib/hooks/usePosts";
 import { cn } from "@/lib/utils";
 import { ChevronUp, Loader2 } from "lucide-react";
 import React, { useState } from "react";
-import { useUpvotePost } from "@/lib/hooks/usePosts";
-import { useWallet } from "@/contexts/wallet";
-import { useAppKit } from "@reown/appkit/react";
 interface UpVoteButtonProps {
   count?: number;
   postId?: string;
@@ -22,8 +20,7 @@ const UpVoteButton = ({
   // Local state for demo mode
   const [isUpvoted, setIsUpvoted] = useState(initialUpvoted);
   const [upvoteCount, setUpvoteCount] = useState(initialCount);
-  const { authenticated } = useWallet();
-  const { open } = useAppKit();
+
 
   // Real upvote mutation for functional mode
   const upvoteMutation = useUpvotePost();
@@ -34,10 +31,7 @@ const UpVoteButton = ({
 
     // If postId is provided, use real upvote functionality
     if (postId) {
-      if (!authenticated) {
-        open();
-        return;
-      }
+
       await upvoteMutation.mutate(postId);
       return;
     }

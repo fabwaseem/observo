@@ -83,7 +83,14 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <WalletContext.Provider
-      value={{ provider, signer, user, authenticated, loading, setAuthenticated }}
+      value={{
+        provider,
+        signer,
+        user,
+        authenticated,
+        loading,
+        setAuthenticated,
+      }}
     >
       {children}
     </WalletContext.Provider>
