@@ -1,87 +1,99 @@
+"use client";
+import ChatMessage from "@/components/landing/ChatMessage";
 import Footer from "@/components/landing/Footer";
 import Hero from "@/components/landing/Hero";
-import Image from "next/image";
-import React from "react";
+import ThemeCard from "@/components/landing/ThemeCard";
+import { useWallet } from "@/contexts/wallet";
+import { BoardTheme } from "@/types";
+import { useAppKit } from "@reown/appkit/react";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-const page = () => {
+const HomePage = () => {
+  const themeCards = [
+    {
+      theme: BoardTheme.VALENTINE,
+      zIndex: "z-30",
+      position: "-ml-1",
+      extraClasses:
+        "group-hover:-ml-64 group-hover:opacity-0 group-hover:scale-75",
+    },
+    { theme: BoardTheme.CYBERPUNK, zIndex: "z-20", position: "-mr-20 -ml-20" },
+    { theme: BoardTheme.DARK, zIndex: "z-10", position: "" },
+    { theme: BoardTheme.AQUA, zIndex: "", position: "-ml-20" },
+    {
+      theme: BoardTheme.RETRO,
+      zIndex: "-z-10",
+      position: "-ml-10",
+      extraClasses:
+        "opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100",
+    },
+  ];
+  const { authenticated } = useWallet();
+  const { open } = useAppKit();
+  const router = useRouter();
+
   return (
     <>
       <Hero />
       <div className="relative w-full bg-neutral rounded-3xl xl:rounded-[48px] pt-8 xl:pt-16 z-10">
-        <section className="flex justify-center items-start pt-12 xl:pt-16 pb-32 px-4 bg-neutral w-full text-neutral-content">
+        <motion.section
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-center items-start pt-12 xl:pt-16 pb-32 px-4 bg-neutral w-full text-neutral-content"
+        >
           <section className="bg-neutral text-neutral-content">
             <div className="max-w-7xl mx-auto px-8 py-16 md:py-32 text-center">
-              <h2 className="max-w-3xl mx-auto font-extrabold text-4xl md:!text-6xl tracking-[-0.01em] mb-16 md:mb-32">
-                80% of startups fail because founders build{/* */}{" "}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="max-w-3xl mx-auto font-extrabold text-4xl md:!text-6xl tracking-[-0.01em] mb-16 md:mb-32"
+              >
+                80% of startups fail because founders build{" "}
                 <span className="underline decoration-dashed underline-offset-8 decoration-neutral-content/60">
                   useless products
                 </span>
-              </h2>
+              </motion.h2>
               <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6">
-                <div className="w-full md:w-48 flex flex-col gap-2 items-center justify-center">
-                  <span className="text-4xl">🤩</span>
-                  <h3 className="font-bold">Launch new feature</h3>
-                </div>
-                <svg
-                  className="shrink-0 w-12 fill-neutral-content opacity-70 max-md:-scale-x-100 md:-rotate-90"
-                  viewBox="0 0 138 138"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M72.9644 5.31431C98.8774 43.8211 83.3812 88.048 54.9567 120.735C54.4696 121.298 54.5274 122.151 55.0896 122.639C55.6518 123.126 56.5051 123.068 56.9922 122.506C86.2147 88.9044 101.84 43.3918 75.2003 3.80657C74.7866 3.18904 73.9486 3.02602 73.3287 3.44222C72.7113 3.85613 72.5484 4.69426 72.9644 5.31431Z"
-                    />
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M56.5084 121.007C56.9835 118.685 57.6119 115.777 57.6736 115.445C59.3456 106.446 59.5323 97.67 58.4433 88.5628C58.3558 87.8236 57.6824 87.2948 56.9433 87.3824C56.2042 87.4699 55.6756 88.1435 55.7631 88.8828C56.8219 97.7138 56.6432 106.225 55.0203 114.954C54.926 115.463 53.5093 121.999 53.3221 123.342C53.2427 123.893 53.3688 124.229 53.4061 124.305C53.5887 124.719 53.8782 124.911 54.1287 125.015C54.4123 125.13 54.9267 125.205 55.5376 124.926C56.1758 124.631 57.3434 123.699 57.6571 123.487C62.3995 120.309 67.4155 116.348 72.791 113.634C77.9171 111.045 83.3769 109.588 89.255 111.269C89.9704 111.475 90.7181 111.057 90.9235 110.342C91.1288 109.626 90.7117 108.878 89.9963 108.673C83.424 106.794 77.3049 108.33 71.5763 111.223C66.2328 113.922 61.2322 117.814 56.5084 121.007Z"
-                    />
-                  </g>
-                </svg>
-                <div className="w-full md:w-48 flex flex-col gap-2 items-center justify-center">
-                  <span className="text-4xl">😐</span>
-                  <h3 className="font-bold">But nothing happens</h3>
-                </div>
-                <svg
-                  className="shrink-0 w-12 fill-neutral-content opacity-70 md:-scale-x-100 md:-rotate-90"
-                  viewBox="0 0 138 138"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M72.9644 5.31431C98.8774 43.8211 83.3812 88.048 54.9567 120.735C54.4696 121.298 54.5274 122.151 55.0896 122.639C55.6518 123.126 56.5051 123.068 56.9922 122.506C86.2147 88.9044 101.84 43.3918 75.2003 3.80657C74.7866 3.18904 73.9486 3.02602 73.3287 3.44222C72.7113 3.85613 72.5484 4.69426 72.9644 5.31431Z"
-                    />
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M56.5084 121.007C56.9835 118.685 57.6119 115.777 57.6736 115.445C59.3456 106.446 59.5323 97.67 58.4433 88.5628C58.3558 87.8236 57.6824 87.2948 56.9433 87.3824C56.2042 87.4699 55.6756 88.1435 55.7631 88.8828C56.8219 97.7138 56.6432 106.225 55.0203 114.954C54.926 115.463 53.5093 121.999 53.3221 123.342C53.2427 123.893 53.3688 124.229 53.4061 124.305C53.5887 124.719 53.8782 124.911 54.1287 125.015C54.4123 125.13 54.9267 125.205 55.5376 124.926C56.1758 124.631 57.3434 123.699 57.6571 123.487C62.3995 120.309 67.4155 116.348 72.791 113.634C77.9171 111.045 83.3769 109.588 89.255 111.269C89.9704 111.475 90.7181 111.057 90.9235 110.342C91.1288 109.626 90.7117 108.878 89.9963 108.673C83.424 106.794 77.3049 108.33 71.5763 111.223C66.2328 113.922 61.2322 117.814 56.5084 121.007Z"
-                    />
-                  </g>
-                </svg>
-                <div className="w-full md:w-48 flex flex-col gap-2 items-center justify-center">
-                  <span className="text-4xl">😔</span>
-                  <h3 className="font-bold">Lose motivation and quit</h3>
-                </div>
+                <ProcessStep
+                  emoji="🤩"
+                  title="Launch new feature"
+                  delay={0.3}
+                />
+                <Arrow className="shrink-0 w-12 fill-neutral-content opacity-70 max-md:-scale-x-100 md:-rotate-90" />
+                <ProcessStep
+                  emoji="😐"
+                  title="But nothing happens"
+                  delay={0.4}
+                />
+                <Arrow className="shrink-0 w-12 fill-neutral-content opacity-70 md:-scale-x-100 md:-rotate-90" />
+                <ProcessStep
+                  emoji="😔"
+                  title="Lose motivation and quit"
+                  delay={0.5}
+                />
               </div>
             </div>
           </section>
-        </section>
+        </motion.section>
 
         <section className="flex justify-center items-center w-full bg-base-100 text-base-content py-20 xl:py-32">
           <div className="py-16 md:py-32 flex flex-col max-w-[82rem] gap-16 md:gap-20 px-4">
-            <h4 className="max-w-3xl font-extrabold text-4xl md:!text-6xl tracking-[-0.01em]">
+            <motion.h4
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="max-w-3xl font-extrabold text-4xl md:!text-6xl tracking-[-0.01em]"
+            >
               Ship features
               <br /> users{/* */}{" "}
               <span className="underline decoration-dashed underline-offset-8 decoration-base-300">
                 really want
               </span>
-            </h4>
+            </motion.h4>
             <div className="flex flex-col w-full h-fit gap-4 xl:gap-10 text-text-default max-w-[82rem]">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-10">
                 <div className="bg-primary text-primary-content rounded-3xl flex flex-col gap-6 w-full h-[22rem] xl:h-[25rem] pt-6 overflow-hidden group">
@@ -227,326 +239,17 @@ const page = () => {
                   </div>
                   <div className="flex left-0 w-full h-full pt-0 xl:pt-8 overflow-hidden -mt-4">
                     <div className="-rotate-[8deg] flex min-w-max overflow-x-visible h-full xl:pt-4">
-                      <div
-                        className="-ml-1 rotate-[6deg] w-72 h-72 z-30 bg-base-200 text-base-content rounded-2xl group-hover:-ml-64 group-hover:opacity-0 group-hover:scale-75 transition-all duration-500 p-4"
-                        data-theme="valentine"
-                      >
-                        <div className="font-medium uppercase tracking-wide text-base-content/60 text-sm mb-3">
-                          Trending feedback
-                        </div>
-                        <div className="space-y-2">
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Clickable cards
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              8
-                            </button>
-                          </div>
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between ">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Bigger images
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              5
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="rotate-[6deg] bg-base-200 text-base-content w-72 h-72 -mr-20 -ml-20 z-20 rounded-xl p-4"
-                        data-theme="cyberpunk"
-                      >
-                        <div className="font-medium uppercase tracking-wide text-base-content/60 text-sm mb-3">
-                          Trending feedback
-                        </div>
-                        <div className="space-y-2">
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Clickable cards
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              8
-                            </button>
-                          </div>
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between ">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Bigger images
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              5
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="rotate-[6deg] bg-base-200 text-base-content z-10 w-72 h-72 rounded-xl p-4"
-                        data-theme="dark"
-                      >
-                        <div className="font-medium uppercase tracking-wide text-base-content/60 text-sm mb-3">
-                          Trending feedback
-                        </div>
-                        <div className="space-y-2">
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Clickable cards
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              8
-                            </button>
-                          </div>
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between ">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Bigger images
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              5
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="rotate-[6deg] bg-base-200 text-base-content w-72 h-72 -ml-20 rounded-xl p-4"
-                        data-theme="aqua"
-                      >
-                        <div className="font-medium uppercase tracking-wide text-base-content/60 text-sm mb-3">
-                          Trending feedback
-                        </div>
-                        <div className="space-y-2">
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Clickable cards
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              8
-                            </button>
-                          </div>
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between ">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Bigger images
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              5
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="rotate-[6deg] bg-base-200 text-base-content w-72 h-72 -ml-10 -z-10 rounded-xl p-4 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"
-                        data-theme="retro"
-                      >
-                        <div className="font-medium uppercase tracking-wide text-base-content/60 text-sm mb-3">
-                          Trending feedback
-                        </div>
-                        <div className="space-y-2">
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Clickable cards
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              8
-                            </button>
-                          </div>
-                          <div className="p-4 bg-base-100 rounded-box flex justify-between ">
-                            <div>
-                              <p className="font-semibold mb-1">
-                                Bigger images
-                              </p>
-                              <p className="opacity-80">
-                                Make cards more accessible
-                              </p>
-                            </div>
-                            <button className="px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-5 h-5  ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0"
-                              >
-                                <path d="m18 15-6-6-6 6" />
-                              </svg>
-                              5
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                      {themeCards.map(
+                        ({ theme, zIndex, position, extraClasses = "" }) => (
+                          <ThemeCard
+                            key={theme}
+                            theme={theme}
+                            zIndex={zIndex}
+                            position={position}
+                            extraClasses={extraClasses}
+                          />
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
@@ -560,51 +263,19 @@ const page = () => {
                     </div>
                   </div>
                   <div className="text-neutral-content px-6 space-y-4">
-                    <div className="px-6 py-4 bg-neutral-content text-neutral rounded-box undefined">
-                      <div className="mb-2 whitespace-pre-wrap">
-                        Can we have a feature to add a custom domain to
-                        IndiePage?
-                      </div>
-                      <div className="text-neutral/80 flex items-center gap-2 text-sm">
-                        <div className="flex items-center gap-2">
-                          <div className="avatar">
-                            <div className="w-7 rounded-full">
-                              <Image
-                                alt="user"
-                                loading="lazy"
-                                width={32}
-                                height={32}
-                                src="/images/user2.png"
-                              />
-                            </div>
-                          </div>
-                          <div className="">Marc Lou</div>
-                        </div>
-                        •<div>Sep 1, 2024</div>
-                      </div>
-                    </div>
-                    <div className="px-6 py-4 bg-neutral-content text-neutral rounded-box opacity-0 group-hover:opacity-100 duration-500 translate-x-1/4 group-hover:translate-x-0">
-                      <div className="mb-2 whitespace-pre-wrap">
-                        I&apos;d definitelly pay for that 🤩{" "}
-                      </div>
-                      <div className="text-neutral/80 flex items-center gap-2 text-sm">
-                        <div className="flex items-center gap-2">
-                          <div className="avatar">
-                            <div className="w-7 rounded-full">
-                              <Image
-                                alt="user"
-                                loading="lazy"
-                                width={32}
-                                height={32}
-                                src="/images/user2.png"
-                              />
-                            </div>
-                          </div>
-                          <div className="">Dan K.</div>
-                        </div>
-                        •<div>Sep 2, 2024</div>
-                      </div>
-                    </div>
+                    <ChatMessage
+                      content="Can we have a feature to add a custom domain to IndiePage?"
+                      author="Marc Lou"
+                      date="Sep 1, 2024"
+                      delay={0.2}
+                    />
+                    <ChatMessage
+                      content="I'd definitelly pay for that 🤩"
+                      author="Dan K."
+                      date="Sep 2, 2024"
+                      className=" opacity-0 group-hover:opacity-100 duration-500 translate-x-1/4 group-hover:translate-x-0"
+                      delay={0.4}
+                    />
                   </div>
                 </div>
               </div>
@@ -612,7 +283,11 @@ const page = () => {
           </div>
         </section>
 
-        <section className="py-16 px-4 bg-neutral w-full text-neutral-content flex flex-col md:flex-row justify-center items-center gap-2 max-md:text-center text-lg md:text-xl">
+        <motion.section
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="py-16 px-4 bg-neutral w-full text-neutral-content flex flex-col md:flex-row justify-center items-center gap-2 max-md:text-center text-lg md:text-xl"
+        >
           <span className="font-semibold">Where&apos;s the pricing?</span>
           <span>
             <span className="text-neutral-content/90">
@@ -620,16 +295,37 @@ const page = () => {
             </span>{" "}
             <span>💛</span>
           </span>
-        </section>
+        </motion.section>
 
         <section className="flex justify-center items-center w-full bg-primary text-primary-content py-20 xl:py-32 rounded-b-3xl xl:rounded-b-[48px]">
           <div className="max-w-7xl px-8 py-16 md:py-32 text-center">
-            <h4 className="max-w-3xl font-black text-4xl md:text-6xl lg:text-7xl tracking-[-0.01em] mb-16 md:mb-32">
+            <motion.h4
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="max-w-3xl font-black text-4xl md:text-6xl lg:text-7xl tracking-[-0.01em] mb-16 md:mb-32"
+            >
               Ship features users (really) want
-            </h4>
-            <button className="btn btn-neutral btn-lg">
+            </motion.h4>
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn btn-neutral btn-lg"
+              onClick={() => {
+                if (authenticated) {
+                  router.push("/dashboard");
+                } else {
+                  open();
+                }
+              }}
+            >
               Collect feedback for free
-            </button>
+            </motion.button>
           </div>
         </section>
 
@@ -639,4 +335,53 @@ const page = () => {
   );
 };
 
-export default page;
+interface ProcessStepProps {
+  emoji: string;
+  title: string;
+  delay?: number;
+}
+
+interface ArrowProps {
+  className: string;
+}
+
+const ProcessStep = ({ emoji, title, delay = 0 }: ProcessStepProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay }}
+    className="w-full md:w-48 flex flex-col gap-2 items-center justify-center"
+  >
+    <span className="text-4xl">{emoji}</span>
+    <h3 className="font-bold">{title}</h3>
+  </motion.div>
+);
+
+const Arrow = ({ className }: ArrowProps) => (
+  <motion.svg
+    initial={{ opacity: 0, scale: 0.5 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5 }}
+    className={className}
+    viewBox="0 0 138 138"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g>
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M72.9644 5.31431C98.8774 43.8211 83.3812 88.048 54.9567 120.735C54.4696 121.298 54.5274 122.151 55.0896 122.639C55.6518 123.126 56.5051 123.068 56.9922 122.506C86.2147 88.9044 101.84 43.3918 75.2003 3.80657C74.7866 3.18904 73.9486 3.02602 73.3287 3.44222C72.7113 3.85613 72.5484 4.69426 72.9644 5.31431Z"
+      ></path>
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M56.5084 121.007C56.9835 118.685 57.6119 115.777 57.6736 115.445C59.3456 106.446 59.5323 97.67 58.4433 88.5628C58.3558 87.8236 57.6824 87.2948 56.9433 87.3824C56.2042 87.4699 55.6756 88.1435 55.7631 88.8828C56.8219 97.7138 56.6432 106.225 55.0203 114.954C54.926 115.463 53.5093 121.999 53.3221 123.342C53.2427 123.893 53.3688 124.229 53.4061 124.305C53.5887 124.719 53.8782 124.911 54.1287 125.015C54.4123 125.13 54.9267 125.205 55.5376 124.926C56.1758 124.631 57.3434 123.699 57.6571 123.487C62.3995 120.309 67.4155 116.348 72.791 113.634C77.9171 111.045 83.3769 109.588 89.255 111.269C89.9704 111.475 90.7181 111.057 90.9235 110.342C91.1288 109.626 90.7117 108.878 89.9963 108.673C83.424 106.794 77.3049 108.33 71.5763 111.223C66.2328 113.922 61.2322 117.814 56.5084 121.007Z"
+      ></path>
+    </g>
+  </motion.svg>
+);
+
+export default HomePage;

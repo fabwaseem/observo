@@ -12,6 +12,8 @@
   --color-base-content-secondary: rgb(64 56 46);
   --color-warning: var(--fallback-wa, oklch(var(--wa)));
   --color-warning-content: var(--fallback-wac, oklch(var(--wac)));
+  --color-error: var(--fallback-er, oklch(var(--er)));
+  --color-error-content: var(--fallback-erc, oklch(var(--erc)));
 
   --radius-box: var(--rounded-box, 1rem);
 }
@@ -414,62 +416,248 @@
   }
 }
 
-.btn {
-  text-transform: capitalize !important;
-  letter-spacing: .025em !important
-}
+@layer components {
 
-.btn-neutral {
-  @apply bg-neutral border border-neutral;
-}
+  .btn {
+    text-transform: capitalize !important;
+    letter-spacing: .025em !important;
+    display: inline-flex;
+    height: 3rem;
+    min-height: 3rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--rounded-btn, .5rem);
+    border-color: transparent;
+    border-color: oklch(var(--btn-color, var(--b2))/var(--tw-border-opacity));
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    font-size: .875rem;
+    line-height: 1em;
+    gap: .5rem;
+    font-weight: 600;
+    text-decoration-line: none;
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(0, 0, .2, 1);
+    border-width: var(--border-btn, 1px);
+    animation: button-pop var(--animation-btn, .25s) ease-out;
+    transition-property: color, background-color, border-color, opacity, box-shadow, transform;
+    --tw-text-opacity: 1;
+    color: var(--fallback-bc, oklch(var(--bc)/var(--tw-text-opacity)));
+    --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+    --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    outline-color: var(--fallback-bc, oklch(var(--bc)/1));
+    background-color: oklch(var(--btn-color, var(--b2))/var(--tw-bg-opacity));
+    --tw-bg-opacity: 1;
+    --tw-border-opacity: 1
+  }
 
-.btn-neutral:active,
-.btn-neutral:hover {
-  @apply !border-neutral-content !bg-neutral-content !text-neutral;
-}
+  .btn-disabled,
+  .btn:disabled,
+  .btn[disabled] {
+    pointer-events: none
+  }
 
-h1 {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-  font-weight: 900
-}
+  .btn-square {
+    height: 3rem;
+    width: 3rem;
+    padding: 0
+  }
 
-@media (min-width:1024px) {
+  .btn-neutral {
+    @apply bg-neutral border border-neutral;
+  }
+
+  .btn-neutral:active,
+  .btn-neutral:hover {
+    @apply !border-neutral-content !bg-neutral-content !text-neutral;
+  }
+
   h1 {
-    font-size: 3.75rem;
-    line-height: 1
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 900
   }
-}
 
-h2 {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  font-weight: 900
-}
+  @media (min-width:1024px) {
+    h1 {
+      font-size: 3.75rem;
+      line-height: 1
+    }
+  }
 
-@media (min-width:1024px) {
   h2 {
-    font-size: 3rem;
-    line-height: 1
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 900
   }
-}
 
-h3 {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  font-weight: 700
-}
+  @media (min-width:1024px) {
+    h2 {
+      font-size: 3rem;
+      line-height: 1
+    }
+  }
 
-@media (min-width:1024px) {
   h3 {
-    font-size: 1.5rem;
-    line-height: 2rem
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700
   }
+
+  @media (min-width:1024px) {
+    h3 {
+      font-size: 1.5rem;
+      line-height: 2rem
+    }
+  }
+
+  .input {
+    flex-shrink: 1;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1rem;
+    line-height: 2;
+    line-height: 1.5rem;
+    border-radius: var(--rounded-btn, .5rem);
+    border-width: 1px;
+    border-color: transparent;
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-b1, oklch(var(--b1)/var(--tw-bg-opacity)))
+  }
+
+  .input-md[type=number]::-webkit-inner-spin-button,
+  .input[type=number]::-webkit-inner-spin-button {
+    margin-top: -1rem;
+    margin-bottom: -1rem;
+    margin-inline-end: -1rem
+  }
+
+  .input input {
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-p, oklch(var(--p)/var(--tw-bg-opacity)));
+    background-color: transparent
+  }
+
+  .input input:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px
+  }
+
+  .input[list]::-webkit-calendar-picker-indicator {
+    line-height: 1em
+  }
+
+  .input-bordered {
+    border-color: var(--fallback-bc, oklch(var(--bc)/.2))
+  }
+
+  .input:focus,
+  .input:focus-within {
+    box-shadow: none;
+    border-color: var(--fallback-bc, oklch(var(--bc)/.2));
+    outline-style: solid;
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-color: var(--fallback-bc, oklch(var(--bc)/.2))
+  }
+
+  .input-disabled,
+  .input:disabled,
+  .input[disabled] {
+    cursor: not-allowed;
+    --tw-border-opacity: 1;
+    border-color: var(--fallback-b2, oklch(var(--b2)/var(--tw-border-opacity)));
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-b2, oklch(var(--b2)/var(--tw-bg-opacity)));
+    color: var(--fallback-bc, oklch(var(--bc)/.4))
+  }
+
+  .input-disabled::-moz-placeholder,
+  .input:disabled::-moz-placeholder,
+  .input[disabled]::-moz-placeholder {
+    color: var(--fallback-bc, oklch(var(--bc)/var(--tw-placeholder-opacity)));
+    --tw-placeholder-opacity: 0.2
+  }
+
+  .input-disabled::placeholder,
+  .input:disabled::placeholder,
+  .input[disabled]::placeholder {
+    color: var(--fallback-bc, oklch(var(--bc)/var(--tw-placeholder-opacity)));
+    --tw-placeholder-opacity: 0.2
+  }
+
+  .input::-webkit-date-and-time-value {
+    text-align: inherit
+  }
+
+  .textarea:focus {
+    box-shadow: none;
+    border-color: var(--fallback-bc, oklch(var(--bc)/.2));
+    outline-style: solid;
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-color: var(--fallback-bc, oklch(var(--bc)/.2))
+  }
+
+  .textarea-disabled,
+  .textarea:disabled,
+  .textarea[disabled] {
+    cursor: not-allowed;
+    --tw-border-opacity: 1;
+    border-color: var(--fallback-b2, oklch(var(--b2)/var(--tw-border-opacity)));
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-b2, oklch(var(--b2)/var(--tw-bg-opacity)));
+    --tw-text-opacity: 0.2
+  }
+
+  .textarea-disabled::-moz-placeholder,
+  .textarea:disabled::-moz-placeholder,
+  .textarea[disabled]::-moz-placeholder {
+    color: var(--fallback-bc, oklch(var(--bc)/var(--tw-placeholder-opacity)));
+    --tw-placeholder-opacity: 0.2
+  }
+
+  .textarea-disabled::placeholder,
+  .textarea:disabled::placeholder,
+  .textarea[disabled]::placeholder {
+    color: var(--fallback-bc, oklch(var(--bc)/var(--tw-placeholder-opacity)));
+    --tw-placeholder-opacity: 0.2
+  }
+
+  .textarea {
+    min-height: 3rem;
+    flex-shrink: 1;
+    padding: .5rem 1rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    line-height: 2;
+    border-radius: var(--rounded-btn, .5rem);
+    border-width: 1px;
+    border-color: transparent;
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-b1, oklch(var(--b1)/var(--tw-bg-opacity)))
+  }
+}
+
+button {
+  @apply cursor-pointer;
 }
 
 .avatar {
   position: relative;
-  display: inline-flex
+  display: inline-flex;
 }
 
 .avatar>div {
@@ -546,56 +734,7 @@ h3 {
   }
 }
 
-.btn {
-  display: inline-flex;
-  height: 3rem;
-  min-height: 3rem;
-  flex-shrink: 0;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--rounded-btn, .5rem);
-  border-color: transparent;
-  border-color: oklch(var(--btn-color, var(--b2))/var(--tw-border-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  text-align: center;
-  font-size: .875rem;
-  line-height: 1em;
-  gap: .5rem;
-  font-weight: 600;
-  text-decoration-line: none;
-  transition-duration: .2s;
-  transition-timing-function: cubic-bezier(0, 0, .2, 1);
-  border-width: var(--border-btn, 1px);
-  animation: button-pop var(--animation-btn, .25s) ease-out;
-  transition-property: color, background-color, border-color, opacity, box-shadow, transform;
-  --tw-text-opacity: 1;
-  color: var(--fallback-bc, oklch(var(--bc)/var(--tw-text-opacity)));
-  --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
-  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  outline-color: var(--fallback-bc, oklch(var(--bc)/1));
-  background-color: oklch(var(--btn-color, var(--b2))/var(--tw-bg-opacity));
-  --tw-bg-opacity: 1;
-  --tw-border-opacity: 1
-}
 
-.btn-disabled,
-.btn:disabled,
-.btn[disabled] {
-  pointer-events: none
-}
-
-.btn-square {
-  height: 3rem;
-  width: 3rem;
-  padding: 0
-}
 
 :where(.btn:is(input[type=checkbox])),
 :where(.btn:is(input[type=radio])) {
@@ -913,30 +1052,7 @@ h3 {
   padding: 1rem
 }
 
-.input {
-  flex-shrink: 1;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  height: 3rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-size: 1rem;
-  line-height: 2;
-  line-height: 1.5rem;
-  border-radius: var(--rounded-btn, .5rem);
-  border-width: 1px;
-  border-color: transparent;
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b1, oklch(var(--b1)/var(--tw-bg-opacity)))
-}
 
-.input-md[type=number]::-webkit-inner-spin-button,
-.input[type=number]::-webkit-inner-spin-button {
-  margin-top: -1rem;
-  margin-bottom: -1rem;
-  margin-inline-end: -1rem
-}
 
 .join {
   display: inline-flex;
@@ -1258,19 +1374,6 @@ h3 {
   background-color: var(--fallback-b1, oklch(var(--b1)/var(--tw-bg-opacity)))
 }
 
-.textarea {
-  min-height: 3rem;
-  flex-shrink: 1;
-  padding: .5rem 1rem;
-  font-size: .875rem;
-  line-height: 1.25rem;
-  line-height: 2;
-  border-radius: var(--rounded-btn, .5rem);
-  border-width: 1px;
-  border-color: transparent;
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b1, oklch(var(--b1)/var(--tw-bg-opacity)))
-}
 
 .toast {
   position: fixed;
@@ -1528,63 +1631,7 @@ h3 {
   color: var(--fallback-bc, oklch(var(--bc)/var(--tw-text-opacity)))
 }
 
-.input input {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-p, oklch(var(--p)/var(--tw-bg-opacity)));
-  background-color: transparent
-}
 
-.input input:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px
-}
-
-.input[list]::-webkit-calendar-picker-indicator {
-  line-height: 1em
-}
-
-.input-bordered {
-  border-color: var(--fallback-bc, oklch(var(--bc)/.2))
-}
-
-.input:focus,
-.input:focus-within {
-  box-shadow: none;
-  border-color: var(--fallback-bc, oklch(var(--bc)/.2));
-  outline-style: solid;
-  outline-width: 2px;
-  outline-offset: 2px;
-  outline-color: var(--fallback-bc, oklch(var(--bc)/.2))
-}
-
-.input-disabled,
-.input:disabled,
-.input[disabled] {
-  cursor: not-allowed;
-  --tw-border-opacity: 1;
-  border-color: var(--fallback-b2, oklch(var(--b2)/var(--tw-border-opacity)));
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b2, oklch(var(--b2)/var(--tw-bg-opacity)));
-  color: var(--fallback-bc, oklch(var(--bc)/.4))
-}
-
-.input-disabled::-moz-placeholder,
-.input:disabled::-moz-placeholder,
-.input[disabled]::-moz-placeholder {
-  color: var(--fallback-bc, oklch(var(--bc)/var(--tw-placeholder-opacity)));
-  --tw-placeholder-opacity: 0.2
-}
-
-.input-disabled::placeholder,
-.input:disabled::placeholder,
-.input[disabled]::placeholder {
-  color: var(--fallback-bc, oklch(var(--bc)/var(--tw-placeholder-opacity)));
-  --tw-placeholder-opacity: 0.2
-}
-
-.input::-webkit-date-and-time-value {
-  text-align: inherit
-}
 
 .join>:where(:not(:first-child)) {
   margin-top: 0;
@@ -1972,39 +2019,7 @@ h3 {
   border-top-color: var(--fallback-b2, oklch(var(--b2)/var(--tw-border-opacity)))
 }
 
-.textarea:focus {
-  box-shadow: none;
-  border-color: var(--fallback-bc, oklch(var(--bc)/.2));
-  outline-style: solid;
-  outline-width: 2px;
-  outline-offset: 2px;
-  outline-color: var(--fallback-bc, oklch(var(--bc)/.2))
-}
 
-.textarea-disabled,
-.textarea:disabled,
-.textarea[disabled] {
-  cursor: not-allowed;
-  --tw-border-opacity: 1;
-  border-color: var(--fallback-b2, oklch(var(--b2)/var(--tw-border-opacity)));
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b2, oklch(var(--b2)/var(--tw-bg-opacity)));
-  --tw-text-opacity: 0.2
-}
-
-.textarea-disabled::-moz-placeholder,
-.textarea:disabled::-moz-placeholder,
-.textarea[disabled]::-moz-placeholder {
-  color: var(--fallback-bc, oklch(var(--bc)/var(--tw-placeholder-opacity)));
-  --tw-placeholder-opacity: 0.2
-}
-
-.textarea-disabled::placeholder,
-.textarea:disabled::placeholder,
-.textarea[disabled]::placeholder {
-  color: var(--fallback-bc, oklch(var(--bc)/var(--tw-placeholder-opacity)));
-  --tw-placeholder-opacity: 0.2
-}
 
 .toast>* {
   animation: toast-pop .25s ease-out
